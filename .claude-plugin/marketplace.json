@@ -1,0 +1,14 @@
+{
+  "name": "yyquiet-plugins",
+  "owner": {
+    "name": "yyquiet"
+  },
+  "plugins": [
+    {
+      "name": "langfuse-config",
+      "source": "./plugins/langfuse-config",
+      "description": "配置将 Claude Code 的 trace 上报到 Langfuse",
+      "category": "productivity"
+    }
+  ]
+}

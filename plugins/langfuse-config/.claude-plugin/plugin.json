@@ -1,0 +1,5 @@
+{
+  "name": "langfuse-config",
+  "version": "1.0.0",
+  "description": "Langfuse tracing integration for Claude Code"
+}
