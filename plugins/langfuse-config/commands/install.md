@@ -4,7 +4,7 @@
 
 1. 先执行：
 ```bash
-python3 -m pip install langfuse==4.3.1
+cd ${CLAUDE_PLUGIN_ROOT} && npm install --omit=dev
 ```
 
 2. 再询问用户这 3 个值：
@@ -14,7 +14,7 @@ python3 -m pip install langfuse==4.3.1
 
 3. 拿到值后执行：
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/configure_langfuse.py \
+node ${CLAUDE_PLUGIN_ROOT}/scripts/configure_langfuse.js \
   --public-key "<LANGFUSE_PUBLIC_KEY>" \
   --secret-key "<LANGFUSE_SECRET_KEY>" \
   --base-url "<LANGFUSE_BASE_URL>"

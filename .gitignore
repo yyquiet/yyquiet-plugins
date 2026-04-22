@@ -1,2 +1,5 @@
 __pycache__/
 tests/
+__tests__/
+node_modules/
+agent-docs/

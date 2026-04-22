@@ -1,0 +1,10 @@
+{
+  "name": "langfuse-config",
+  "private": true,
+  "scripts": {
+    "test": "node --test scripts/__tests__/*.test.js"
+  },
+  "dependencies": {
+    "@langfuse/client": "^5.2.0"
+  }
+}

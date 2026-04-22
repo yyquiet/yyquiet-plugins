@@ -4,9 +4,8 @@
 
 ## 依赖
 
-- `python3`
-- 在 Claude Code 实际使用的 `python3` 环境中安装锁定版本依赖：
-  `python3 -m pip install langfuse==4.3.1`
+- `node`
+- 首次使用前执行 `/langfuse-config:install`，命令会在插件目录中安装 Node 运行依赖
 
 ## 配置环境变量
 
@@ -32,5 +31,5 @@
 启用插件后，Claude Code 会加载插件内的 `hooks/hooks.json`，并执行：
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/langfuse_hook.py
+node ${CLAUDE_PLUGIN_ROOT}/scripts/langfuse_hook.js
 ```
