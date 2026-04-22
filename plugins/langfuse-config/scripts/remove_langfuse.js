@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { configureSettings, refreshRuntimeConfig } = require("./settings");
+const { refreshRuntimeConfig, removeSettings } = require("./settings");
 
 function main() {
   const config = refreshRuntimeConfig();

@@ -2,9 +2,15 @@
   "name": "langfuse-config",
   "private": true,
   "scripts": {
+    "lint": "eslint \"scripts/**/*.js\"",
     "test": "node --test scripts/__tests__/*.test.js"
   },
   "dependencies": {
     "@langfuse/client": "^5.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0"
   }
 }

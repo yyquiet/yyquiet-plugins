@@ -25,7 +25,9 @@ function log(level, message) {
     fs.mkdirSync(config.stateDir, { recursive: true });
     const now = new Date().toISOString().replace("T", " ").slice(0, 19);
     fs.appendFileSync(config.logFile, `${now} [${level}][${currentSessionId}] ${message}\n`, "utf8");
-  } catch {}
+  } catch {
+    // Logging must never break the hook flow.
+  }
 }
 
 function debug(message) {
@@ -274,7 +276,9 @@ function readNewJsonl(transcriptPath, sessionState) {
 
       try {
         messages.push(JSON.parse(line));
-      } catch {}
+      } catch {
+        // Skip malformed JSONL records and continue reading later lines.
+      }
     }
 
     return [messages, sessionState];
@@ -452,7 +456,9 @@ class FileLock {
 
     try {
       fs.unlinkSync(this.lockPath);
-    } catch {}
+    } catch {
+      // Ignore cleanup failures because the lock is already being released.
+    }
     this.locked = false;
   }
 

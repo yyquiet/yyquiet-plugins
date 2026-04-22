@@ -102,7 +102,9 @@ async function main() {
     if (langfuse) {
       try {
         await langfuse.shutdown();
-      } catch {}
+      } catch {
+        // Shutdown failures should not affect hook completion.
+      }
     }
   }
 }
