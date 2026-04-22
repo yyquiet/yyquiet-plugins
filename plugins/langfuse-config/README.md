@@ -21,7 +21,8 @@
     "TRACE_TO_LANGFUSE": "true",
     "LANGFUSE_PUBLIC_KEY": "pk-lf-...",
     "LANGFUSE_SECRET_KEY": "sk-lf-...",
-    "LANGFUSE_BASE_URL": "https://服务地址"
+    "LANGFUSE_BASE_URL": "https://服务地址",
+    "LANGFUSE_USER_ID": "your-user-id"
   }
 }
 ```

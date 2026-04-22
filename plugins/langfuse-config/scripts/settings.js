@@ -9,6 +9,7 @@ const SETTING_KEYS = {
   LANGFUSE_PUBLIC_KEY: "LANGFUSE_PUBLIC_KEY",
   LANGFUSE_SECRET_KEY: "LANGFUSE_SECRET_KEY",
   LANGFUSE_BASE_URL: "LANGFUSE_BASE_URL",
+  LANGFUSE_USER_ID: "LANGFUSE_USER_ID",
   LANGFUSE_DEBUG: "LANGFUSE_DEBUG",
   LANGFUSE_MAX_CHARS: "LANGFUSE_MAX_CHARS",
 };
@@ -18,6 +19,7 @@ const REMOVE_KEYS = [
   SETTING_KEYS.LANGFUSE_PUBLIC_KEY,
   SETTING_KEYS.LANGFUSE_SECRET_KEY,
   SETTING_KEYS.LANGFUSE_BASE_URL,
+  SETTING_KEYS.LANGFUSE_USER_ID,
   SETTING_KEYS.LANGFUSE_DEBUG,
   SETTING_KEYS.LANGFUSE_MAX_CHARS,
 ];
@@ -63,6 +65,7 @@ function createRuntimeConfig({ homeDir = os.homedir(), env = process.env } = {})
     publicKey: readConfigValue(SETTING_KEYS.LANGFUSE_PUBLIC_KEY),
     secretKey: readConfigValue(SETTING_KEYS.LANGFUSE_SECRET_KEY),
     baseUrl: readConfigValue(SETTING_KEYS.LANGFUSE_BASE_URL),
+    userId: readConfigValue(SETTING_KEYS.LANGFUSE_USER_ID),
     maxChars: Number.isFinite(maxChars) ? maxChars : 20000,
     debugEnabled: readConfigValue(SETTING_KEYS.LANGFUSE_DEBUG).toLowerCase() === "true",
   };
@@ -77,13 +80,14 @@ function refreshRuntimeConfig(options) {
   return runtimeConfig;
 }
 
-function configureSettings({ settingsFile, publicKey, secretKey, baseUrl }) {
+function configureSettings({ settingsFile, publicKey, secretKey, baseUrl, userId }) {
   const settings = readSettings(settingsFile);
   const env = { ...(settings.env || {}) };
   env[SETTING_KEYS.TRACE_TO_LANGFUSE] = "true";
   env[SETTING_KEYS.LANGFUSE_PUBLIC_KEY] = publicKey;
   env[SETTING_KEYS.LANGFUSE_SECRET_KEY] = secretKey;
   env[SETTING_KEYS.LANGFUSE_BASE_URL] = baseUrl;
+  env[SETTING_KEYS.LANGFUSE_USER_ID] = userId;
   settings.env = env;
   writeSettings(settingsFile, settings);
 }

@@ -20,9 +20,21 @@ function toIso(value) {
   return value instanceof Date ? value.toISOString() : undefined;
 }
 
-function buildIngestionBatch({ sessionId, turnNum, turn, transcriptPath }) {
+function makeTraceName(userText, turnNum) {
+  const normalized = String(userText || "").replace(/\s+/g, " ").trim();
+  if (!normalized) {
+    return `Turn ${turnNum}`;
+  }
+  if (normalized.length <= 20) {
+    return normalized;
+  }
+  return `${normalized.slice(0, 20)}...`;
+}
+
+function buildIngestionBatch({ userId, sessionId, turnNum, turn, transcriptPath }) {
   const userTextRaw = extractText(getContent(turn.userMsg));
   const [userText, userTextMeta] = truncateText(userTextRaw);
+  const traceName = makeTraceName(userTextRaw, turnNum);
   const model = getModel(turn.assistantMsgs[0] || {});
   const usageDetails = sumUsageDetails(turn.assistantMsgs);
   const traceTimestamp =
@@ -55,15 +67,16 @@ function buildIngestionBatch({ sessionId, turnNum, turn, transcriptPath }) {
       body: {
         id: traceId,
         timestamp: toIso(traceTimestamp),
-        name: `Claude Code - Turn ${turnNum}`,
+        name: traceName,
         input: { role: "user", content: userText },
         output: { role: "assistant", content: finalAssistantText },
+        userId,
         sessionId,
         metadata: {
           source: "claude-code",
+          user_id: userId,
           session_id: sessionId,
           turn_number: turnNum,
-          transcript_path: transcriptPath,
           user_text: userTextMeta,
         },
         tags: ["claude-code"],
@@ -168,8 +181,9 @@ function buildIngestionBatch({ sessionId, turnNum, turn, transcriptPath }) {
   return batch;
 }
 
-async function emitTurn(langfuse, sessionId, turnNum, turn, transcriptPath) {
+async function emitTurn(langfuse, userId, sessionId, turnNum, turn, transcriptPath) {
   const batch = buildIngestionBatch({
+    userId,
     sessionId,
     turnNum,
     turn,
@@ -181,4 +195,5 @@ async function emitTurn(langfuse, sessionId, turnNum, turn, transcriptPath) {
 module.exports = {
   buildIngestionBatch,
   emitTurn,
+  makeTraceName,
 };

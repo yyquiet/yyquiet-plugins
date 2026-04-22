@@ -24,6 +24,12 @@ function parseArgs(argv) {
     if (key === "--base-url") {
       args.baseUrl = value;
       index += 1;
+      continue;
+    }
+
+    if (key === "--user-id") {
+      args.userId = value;
+      index += 1;
     }
   }
 
@@ -36,8 +42,8 @@ function main(argv = process.argv.slice(2)) {
 
   console.log("==> 配置 Langfuse 环境变量...");
 
-  if (!args.publicKey || !args.secretKey || !args.baseUrl) {
-    console.log("必须提供 public key、secret key 和 base URL。");
+  if (!args.publicKey || !args.secretKey || !args.baseUrl || !args.userId) {
+    console.log("必须提供 public key、secret key、base URL 和 user ID。");
     return 1;
   }
 
@@ -46,6 +52,7 @@ function main(argv = process.argv.slice(2)) {
     publicKey: args.publicKey,
     secretKey: args.secretKey,
     baseUrl: args.baseUrl,
+    userId: args.userId,
   });
 
   console.log(`已写入配置到 ${config.settingsFile}`);

@@ -8,6 +8,7 @@ const {
   debug,
   extractSessionAndTranscript,
   info,
+  error,
   loadSessionState,
   loadState,
   readHookPayload,
@@ -32,7 +33,12 @@ async function main() {
   }
 
   if (!config.publicKey || !config.secretKey || !config.baseUrl) {
-    debug("missing public_key or secret_key or host");
+    error("missing public_key or secret_key or host");
+    return 0;
+  }
+
+  if (!config.userId) {
+    error("missing user_id");
     return 0;
   }
 
@@ -84,7 +90,7 @@ async function main() {
 
       for (const turn of turns) {
         emitted += 1;
-        await emitTurn(langfuse, sessionId, nextState.turnCount + emitted, turn, transcriptPath);
+        await emitTurn(langfuse, config.userId, sessionId, nextState.turnCount + emitted, turn, transcriptPath);
       }
 
       nextState.turnCount += emitted;

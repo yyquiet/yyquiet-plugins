@@ -40,6 +40,14 @@ function info(message) {
   log("INFO", message);
 }
 
+function warn(message) {
+  log("WARN", message);
+}
+
+function error(message) {
+  log("ERROR", message);
+}
+
 function stateKey(sessionId, transcriptPath) {
   return crypto.createHash("sha256").update(`${sessionId}::${transcriptPath}`, "utf8").digest("hex");
 }
@@ -483,6 +491,8 @@ module.exports = {
   getMessageTimestamp,
   getModel,
   info,
+  warn,
+  error,
   loadSessionState,
   loadState,
   readHookPayload,
