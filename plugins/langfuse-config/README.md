@@ -22,7 +22,7 @@
     "LANGFUSE_PUBLIC_KEY": "pk-lf-...",
     "LANGFUSE_SECRET_KEY": "sk-lf-...",
     "LANGFUSE_BASE_URL": "https://服务地址",
-    "LANGFUSE_USER_ID": "your-user-id"
+    "LANGFUSE_USER_ID": "your-user-id，使用名字拼音如liyuan"
   }
 }
 ```

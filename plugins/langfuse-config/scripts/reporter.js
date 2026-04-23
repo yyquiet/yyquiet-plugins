@@ -20,21 +20,22 @@ function toIso(value) {
   return value instanceof Date ? value.toISOString() : undefined;
 }
 
-function makeTraceName(userText, turnNum) {
+function makeTraceName(userText) {
   const normalized = String(userText || "").replace(/\s+/g, " ").trim();
   if (!normalized) {
-    return `Turn ${turnNum}`;
+    return `空输入`;
   }
-  if (normalized.length <= 20) {
+  let maxLength = 40
+  if (normalized.length <= maxLength) {
     return normalized;
   }
-  return `${normalized.slice(0, 20)}...`;
+  return `${normalized.slice(0, maxLength)}...`;
 }
 
 function buildIngestionBatch({ userId, sessionId, turnNum, turn, transcriptPath }) {
   const userTextRaw = extractText(getContent(turn.userMsg));
   const [userText, userTextMeta] = truncateText(userTextRaw);
-  const traceName = makeTraceName(userTextRaw, turnNum);
+  const traceName = makeTraceName(userTextRaw);
   const model = getModel(turn.assistantMsgs[0] || {});
   const usageDetails = sumUsageDetails(turn.assistantMsgs);
   const traceTimestamp =

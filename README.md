@@ -13,7 +13,7 @@
 /plugin marketplace add yyquiet/yyquiet-plugins
 ```
 
-然后安装插件：
+然后安装插件，例如：
 
 ```text
 /plugin install langfuse-config@yyquiet-plugins

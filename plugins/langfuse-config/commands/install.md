@@ -8,10 +8,10 @@ cd ${CLAUDE_PLUGIN_ROOT} && npm install --omit=dev
 ```
 
 2. 再询问用户这 4 个值：
-   - `LANGFUSE_PUBLIC_KEY`
-   - `LANGFUSE_SECRET_KEY`
-   - `LANGFUSE_BASE_URL`
-   - `LANGFUSE_USER_ID`
+   - `LANGFUSE_PUBLIC_KEY`: pk-lf-...
+   - `LANGFUSE_SECRET_KEY`: sk-lf-...
+   - `LANGFUSE_BASE_URL`: https://服务地址
+   - `LANGFUSE_USER_ID`: your-user-id，使用名字拼音如liyuan
 
 3. 拿到值后执行：
 ```bash
